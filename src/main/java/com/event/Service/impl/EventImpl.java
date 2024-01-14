@@ -40,7 +40,7 @@ public class EventImpl implements EventService {
     @Override
     public EventDTO FindById(long id) {
         Event event = er.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("this is is not exist in database" + id)
+                () -> new ResourceNotFoundException("Event with ID  not found in the database:"+id  )
         );
         EventDTO ed = new EventDTO();
         ed.setId(event.getId());
@@ -65,7 +65,9 @@ public class EventImpl implements EventService {
 
     @Override
     public EventDTO updateData(long id , EventDTO ed) {
-        Event e = er.findById(id).get();
+        Event e = er.findById(id).orElseThrow(
+                ()-> new ResourceNotFoundException("id is not found: " +id+  " , Data is not updated")
+        );
         e.setName(ed.getName());
         e.setEmail(ed.getEmail());
         e.setNumber(ed.getNumber());
