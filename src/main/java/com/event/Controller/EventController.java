@@ -30,7 +30,7 @@ public class EventController {
         return new ResponseEntity<>(eventDTO,HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity< List<EventDTO>> getAll(){
         List<EventDTO> eventDTOS = es.GetAllData();
         return new ResponseEntity<>(eventDTOS,HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -40,4 +40,9 @@ public class EventController {
         return  ResponseEntity.ok("Recorde is deleted");
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateData(@PathVariable long id , @RequestBody EventDTO e){
+        EventDTO eventDTO = es.updateData(id,e);
+        return new ResponseEntity<>(eventDTO , HttpStatus.CREATED);
+    }
 }

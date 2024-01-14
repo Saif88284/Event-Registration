@@ -62,4 +62,20 @@ public class EventImpl implements EventService {
     public void delete(long id) {
         er.deleteById(id);
     }
+
+    @Override
+    public EventDTO updateData(long id , EventDTO ed) {
+        Event e = er.findById(id).get();
+        e.setName(ed.getName());
+        e.setEmail(ed.getEmail());
+        e.setNumber(ed.getNumber());
+        e.setEventname(ed.getEventname());
+        Event save = er.save(e);
+        ed.setId(save.getId());
+        ed.setName(save.getName());
+        ed.setEmail(save.getEmail());
+        ed.setNumber(save.getNumber());
+        ed.setEventname(save.getEventname());
+        return ed;
+    }
 }
